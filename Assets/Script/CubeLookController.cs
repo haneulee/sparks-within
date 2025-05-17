@@ -16,9 +16,10 @@ public class CubeLookController : MonoBehaviour
         Look bestCandidate = null;
         float bestDot = -1f;
 
-        // 모든 큐브 중 카메라 중심과 가장 일치하는 큐브 찾기
         foreach (var cube in cubes)
         {
+            if (cube == null) continue;
+
             Vector3 dirToCube = (cube.transform.position - playerCamera.position).normalized;
             float dot = Vector3.Dot(playerCamera.forward, dirToCube);
 
@@ -29,16 +30,17 @@ public class CubeLookController : MonoBehaviour
             }
         }
 
-        // 현재 바라보는 큐브가 이전과 같으면 타이머 증가
         if (bestCandidate == currentTarget)
         {
-            lookTimer += Time.deltaTime;
-            if (lookTimer >= requiredLookTime && !currentTarget.effectTriggered)
+            if (currentTarget != null)
             {
-                currentTarget.TriggerRingEffect();
-                currentTarget.effectTriggered = true;
+                lookTimer += Time.deltaTime;
+                if (lookTimer >= requiredLookTime && !currentTarget.effectTriggered)
+                {
+                    currentTarget.TriggerRingEffect();
+                    currentTarget.effectTriggered = true;
+                }
             }
-
         }
         else
         {
@@ -46,4 +48,5 @@ public class CubeLookController : MonoBehaviour
             lookTimer = 0f;
         }
     }
+
 }

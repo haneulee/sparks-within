@@ -2,28 +2,60 @@ using UnityEngine;
 
 public class RingMover : MonoBehaviour
 {
-    private Transform target;    // 플레이어 카메라
+    private Transform target;
     private float speed = 1f;
-    private float destroyDistance = 0.2f;  // 사라지는 거리
+    private float destroyDistance = 1f;
 
-    public void Initialize(Transform targetTransform, float moveSpeed)
+    private GameObject sourceCube;
+
+    public void Initialize(Transform targetTransform, float moveSpeed, GameObject fromCube)
     {
         target = targetTransform;
         speed = moveSpeed;
+        sourceCube = fromCube;
     }
 
     void Update()
     {
         if (target == null) return;
 
-        Vector3 direction = (target.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += (target.position - transform.position).normalized * speed * Time.deltaTime;
 
-        // 타겟(카메라)과 충분히 가까워지면 제거
-        float distance = Vector3.Distance(transform.position, target.position);
-        if (distance < destroyDistance)
+        if (Vector3.Distance(transform.position, target.position) < destroyDistance)
         {
-            Destroy(gameObject);  // 링 제거
+            if (sourceCube != null)
+            {
+                var profile = sourceCube.GetComponent<SoundProfile>();
+                if (profile != null)
+                {
+                    if (SoundMemoryManager.Instance == null)
+                    {
+                        Debug.LogError("❌ SoundMemoryManager.Instance is NULL!");
+                    }
+                    else
+                    {
+                        Debug.Log("✅ SoundMemoryManager.Instance is alive.");
+                        SoundMemoryManager.Instance.AddSound(profile);
+                    }
+
+                    var audio = sourceCube.GetComponent<AudioSource>();
+                    if (audio != null) audio.Stop();
+
+                    Destroy(sourceCube);
+                    Debug.Log("Destroyed cube: " + sourceCube.name);
+                }
+                else
+                {
+                    Debug.LogWarning("SoundProfile component is missing on " + sourceCube.name);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("sourceCube is NULL in RingMover");
+            }
+
+            Destroy(gameObject);
         }
     }
+
 }

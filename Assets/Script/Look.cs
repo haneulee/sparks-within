@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Look : MonoBehaviour
 {
-    public GameObject ringPrefab;             // <- 프리팹 연결할 필드
-    public Transform playerCamera;            // <- 카메라 연결
+    public GameObject ringPrefab;
+    public Transform playerCamera;
     public float ringSpeed = 1f;
     public float ringSpawnOffset = 0.5f;
     public bool effectTriggered = false;
@@ -17,7 +17,6 @@ public class Look : MonoBehaviour
     {
         floatScript = GetComponent<floatingobject>();
 
-        // floatingobject 스크립트에 playerCamera 전달
         if (floatScript != null && playerCamera != null)
         {
             floatScript.playerCamera = playerCamera;
@@ -36,6 +35,7 @@ public class Look : MonoBehaviour
             (playerCamera.position - transform.position).normalized * ringSpawnOffset;
 
         activeRing = Instantiate(ringPrefab, spawnPos, Quaternion.identity);
-        activeRing.AddComponent<RingMover>().Initialize(playerCamera, ringSpeed);
+        RingMover mover = activeRing.AddComponent<RingMover>();
+        mover.Initialize(playerCamera, ringSpeed, this.gameObject);
     }
 }
