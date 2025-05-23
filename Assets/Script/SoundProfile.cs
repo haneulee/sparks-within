@@ -4,6 +4,8 @@ public class SoundProfile : MonoBehaviour
 {
     public string beingName;
     public AudioClip soundClip;
+    public Color topColor = Color.white;
+    public Color bottomColor = Color.gray;
 
     void Awake()
     {

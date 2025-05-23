@@ -21,7 +21,7 @@ public class SoundMemoryManager : MonoBehaviour
             return;
         }
 
-        if (collectedNames.Contains(profile.beingName)) return;
+        // if (collectedNames.Contains(profile.beingName)) return;
 
         collectedNames.Add(profile.beingName);
 
@@ -45,6 +45,11 @@ public class SoundMemoryManager : MonoBehaviour
         }
 
         activeSources.Add(src);
+    }
+
+    public bool HasBeenCollected(string beingName)
+    {
+        return collectedNames.Contains(beingName); // beingName은 SoundProfile.beingName
     }
 
 
