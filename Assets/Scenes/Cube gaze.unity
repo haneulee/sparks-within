@@ -611,8 +611,8 @@ MonoBehaviour:
   - {fileID: 517339903}
   - {fileID: 424558757}
   - {fileID: 586919300}
-  speed: 3
-  rotationSpeed: 5
+  speed: 0.5
+  rotationSpeed: 3
 --- !u!1 &171272025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,8 +1159,8 @@ MonoBehaviour:
   - {fileID: 1830528543}
   - {fileID: 805743142}
   - {fileID: 107202529}
-  speed: 3
-  rotationSpeed: 5
+  speed: 0.5
+  rotationSpeed: 3
 --- !u!1 &571632115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,8 +2066,8 @@ MonoBehaviour:
   - {fileID: 885877968}
   - {fileID: 1031864134}
   - {fileID: 1324441643}
-  speed: 3
-  rotationSpeed: 5
+  speed: 0.5
+  rotationSpeed: 3
 --- !u!1 &1305207589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrRig: {fileID: 694163649}
   playerCamera: {fileID: 1052682133}
+  smoothSpeed: 5
+  maxDistance: 10
 --- !u!4 &1386368094
 Transform:
   m_ObjectHideFlags: 0
@@ -2691,8 +2693,8 @@ MonoBehaviour:
   - {fileID: 913245137}
   - {fileID: 1700799986}
   - {fileID: 139011047}
-  speed: 3
-  rotationSpeed: 5
+  speed: 0.5
+  rotationSpeed: 3
 --- !u!1 &1666700001
 GameObject:
   m_ObjectHideFlags: 0
