@@ -6,6 +6,24 @@ public class LookController : MonoBehaviour
     public Transform playerCamera;
     public List<GameObject> cubes;
     public float lookThreshold = 0.96f; // 약 10도 이내
+    public float defaultVolume = 1.5f; // 기본 볼륨을 1.5배로 설정
+    public float spatialBlend = 0.5f; // 3D 효과 정도 (0: 2D, 1: 3D)
+    public float maxDistance = 100f; // 최대 거리
+
+    void Start()
+    {
+        // 모든 큐브의 AudioSource 설정 초기화
+        foreach (var cube in cubes)
+        {
+            AudioSource audio = cube.GetComponent<AudioSource>();
+            if (audio != null)
+            {
+                audio.spatialBlend = spatialBlend;
+                audio.maxDistance = maxDistance;
+                audio.rolloffMode = AudioRolloffMode.Linear;
+            }
+        }
+    }
 
     void Update()
     {
@@ -31,7 +49,10 @@ public class LookController : MonoBehaviour
 
                 // ❗ 수집되지 않은 큐브만 소리 재생
                 if (!audio.isPlaying && !alreadyCollected)
+                {
+                    audio.volume = defaultVolume;
                     audio.Play();
+                }
             }
             else
             {
