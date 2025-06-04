@@ -28,7 +28,7 @@ public class LookController : MonoBehaviour
 
     void Update()
     {
-        currentLookTarget = null; // 👈 매 프레임 초기화
+        currentLookTarget = null;
         GameObject bestCandidate = null;
         float bestDot = -1f;
 
@@ -48,7 +48,7 @@ public class LookController : MonoBehaviour
                 bestDot = dot;
                 bestCandidate = cube;
 
-                if (!audio.isPlaying && !alreadyCollected)
+                if (!alreadyCollected && !audio.isPlaying)
                 {
                     audio.volume = defaultVolume;
                     audio.Play();
@@ -57,11 +57,14 @@ public class LookController : MonoBehaviour
             else
             {
                 if (audio.isPlaying)
+                {
                     audio.Stop();
+                }
             }
         }
 
-        currentLookTarget = bestCandidate; // 👈 현재 바라보는 큐브 업데이트
+        currentLookTarget = bestCandidate;
     }
+
 
 }

@@ -731,7 +731,7 @@ Transform:
   m_GameObject: {fileID: 308331143}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26015946, y: 1.567736, z: -1.2067899}
+  m_LocalPosition: {x: -0.26015946, y: 10.2, z: -1.2067899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -767,7 +767,7 @@ Transform:
   m_GameObject: {fileID: 338743712}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26015946, y: 1.567736, z: -1.2067899}
+  m_LocalPosition: {x: -0.26015946, y: 10.2, z: -1.2067899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1295,7 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f67785698f33347a447330bc686678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cycleDurationXZ: {x: 20, y: 25}
+  m_cycleDurationXZ: {x: 5, y: 5}
   m_movementPathX:
     serializedVersion: 2
     m_Curve:
@@ -1425,8 +1425,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_movementMagnitudeXZ: {x: 1, y: 0.2}
-  m_movementTimeOffsetXZ: {x: 0, y: 0.25}
+  m_movementMagnitudeXZ: {x: 20, y: 20}
+  m_movementTimeOffsetXZ: {x: -0.72, y: 12.22}
 --- !u!1 &586919299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,7 +2524,7 @@ Transform:
   m_GameObject: {fileID: 1494709017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26015946, y: 1.567736, z: -1.2067899}
+  m_LocalPosition: {x: -0.26015946, y: 10.2, z: -1.2067899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2997,7 +2997,7 @@ Transform:
   m_GameObject: {fileID: 1869566597}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26015946, y: 1.567736, z: -1.2067899}
+  m_LocalPosition: {x: -0.26015946, y: 10.2, z: -1.2067899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -9,6 +9,7 @@ public class ProximityTrigger : MonoBehaviour
     public float cubeAlignmentThreshold = 0.95f;
 
     private bool triggered = false;
+    private GameObject lastTriggeredTarget = null; // 👈 추가!
     private CameraViewChanger cameraViewChanger;
     private LookController lookController;
 
@@ -28,24 +29,24 @@ public class ProximityTrigger : MonoBehaviour
         if (leftHand == null || rightHand == null || lookController == null) return;
 
         float handDistance = Vector3.Distance(leftHand.position, rightHand.position);
-        if (handDistance >= handTouchThreshold)
-        {
-            triggered = false;
-            return;
-        }
+        if (handDistance >= handTouchThreshold) return;
 
         GameObject target = lookController.currentLookTarget;
-        // Vector3 handCenter = (leftHand.position + rightHand.position) * 0.5f;
-        // Vector3 toCube = (transform.position - handCenter).normalized;
-        // Vector3 handsForward = ((leftHand.forward + rightHand.forward) * 0.5f).normalized;
-        // float dot = Vector3.Dot(toCube, handsForward);
 
-        if (target && !triggered)
+        if (target != lastTriggeredTarget)
+        {
+            triggered = false; // 👈 새로운 큐브일 경우 다시 트리거 가능
+        }
+
+        if (!triggered && target == gameObject)
         {
             TriggerEffect();
             triggered = true;
+            lastTriggeredTarget = target; // 👈 마지막으로 트리거한 큐브 저장
         }
     }
+
+
 
     void TriggerEffect()
     {
@@ -94,10 +95,6 @@ public class ProximityTrigger : MonoBehaviour
 
             Debug.Log($"🎵 Playing sound: {profile.beingName}");
             SoundMemoryManager.Instance.AddSound(profile);
-        }
-        else
-        {
-            Debug.LogError("❌ SoundMemoryManager.Instance is NULL!");
         }
     }
 

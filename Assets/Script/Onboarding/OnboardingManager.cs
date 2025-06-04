@@ -145,7 +145,7 @@ public class OnboardingManager : MonoBehaviour
         // 👇 Trigger2 애니메이션 (Reform) 실행
         entityAnimator.SetTrigger(animationTrigger2);
 
-        onboardingText.text = "You shared your consciousness with other entities.";
+        // onboardingText.text = "You shared your consciousness with other entities.";
     }
 
 }
