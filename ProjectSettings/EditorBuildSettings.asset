@@ -5,15 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Cube touch.unity
-    guid: 7c1fae609a04b49a8bf4314aa7bf6dc1
   - enabled: 1
-    path: Assets/Scenes/Cube gaze.unity
+    path: Assets/Scenes/Onboarding.unity
+    guid: acb5b034a653349ea8bf379c68bca8fd
+  - enabled: 1
+    path: Assets/Scenes/CompleteGame.unity
     guid: d4e9864b4cf5046d6958f09666b5a077
-  - enabled: 0
-    path: Assets/Scenes/360Images.unity
-    guid: 3931c8527448c4054968b72e2c6f98ea
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
