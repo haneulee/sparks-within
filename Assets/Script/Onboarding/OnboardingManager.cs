@@ -54,7 +54,7 @@ public class OnboardingManager : MonoBehaviour
 
         if (!hasShownSecondText && timer >= 10f)
         {
-            onboardingText.text = "Join your hand toward me\nto share your consciousness with me";
+            onboardingText.text = "Join your hand\nto share your consciousness with me";
             hasShownSecondText = true;
         }
 
@@ -132,21 +132,20 @@ public class OnboardingManager : MonoBehaviour
 
         float handDistance = Vector3.Distance(leftHand.position, rightHand.position);
         if (handDistance >= handTouchThreshold) return;
-        
 
-        Vector3 handCenter = (leftHand.position + rightHand.position) * 0.5f;
-        Vector3 toEntity = (particleEntity.transform.position - handCenter).normalized;
-        Vector3 handsForward = ((leftHand.forward + rightHand.forward) * 0.5f).normalized;
-        float alignment = Vector3.Dot(toEntity, handsForward);
-        Debug.Log($"alignment: {alignment:F3}, cubeAlignmentThreshold: {cubeAlignmentThreshold}, {alignment > cubeAlignmentThreshold}");
+        // 👁️ 바라보고 있는지 확인
+        Vector3 dirToEntity = (particleEntity.transform.position - playerCamera.transform.position).normalized;
+        float dot = Vector3.Dot(playerCamera.transform.forward, dirToEntity);
+        if (dot < lookThreshold) return;
 
-        if (alignment > cubeAlignmentThreshold)
-        {
-            Debug.Log("hands are clapped and pointing to the entity!");
-            hasTriggeredHands = true;
+        // ✅ 바라보면서 손만 모으면 성공
+        Debug.Log("👏 Hands are clapped while looking at the entity!");
+        hasTriggeredHands = true;
 
-            entityAnimator.SetTrigger(animationTrigger2); // Reform 시작
-            // onboardingText.text = "You shared your consciousness with other entities.";
-        }
+        // 👇 Trigger2 애니메이션 (Reform) 실행
+        entityAnimator.SetTrigger(animationTrigger2);
+
+        onboardingText.text = "You shared your consciousness with other entities.";
     }
+
 }

@@ -10,19 +10,22 @@ public class ProximityTrigger : MonoBehaviour
 
     private bool triggered = false;
     private CameraViewChanger cameraViewChanger;
+    private LookController lookController;
 
     void Start()
     {
         cameraViewChanger = FindObjectOfType<CameraViewChanger>();
+        lookController = FindObjectOfType<LookController>();
+
         if (cameraViewChanger == null)
-        {
             Debug.LogWarning("⚠️ CameraViewChanger component not found in scene!");
-        }
+        if (lookController == null)
+            Debug.LogWarning("⚠️ LookController not found!");
     }
 
     void Update()
     {
-        if (leftHand == null || rightHand == null) return;
+        if (leftHand == null || rightHand == null || lookController == null) return;
 
         float handDistance = Vector3.Distance(leftHand.position, rightHand.position);
         if (handDistance >= handTouchThreshold)
@@ -31,18 +34,14 @@ public class ProximityTrigger : MonoBehaviour
             return;
         }
 
-        Vector3 handCenter = (leftHand.position + rightHand.position) * 0.5f;
-        Vector3 toCube = (transform.position - handCenter).normalized;
-        Vector3 handsForward = ((leftHand.forward + rightHand.forward) * 0.5f).normalized;
+        GameObject target = lookController.currentLookTarget;
+        // Vector3 handCenter = (leftHand.position + rightHand.position) * 0.5f;
+        // Vector3 toCube = (transform.position - handCenter).normalized;
+        // Vector3 handsForward = ((leftHand.forward + rightHand.forward) * 0.5f).normalized;
+        // float dot = Vector3.Dot(toCube, handsForward);
 
-        float dot = Vector3.Dot(toCube, handsForward);
-
-        Debug.Log($"dotHand: {dot:F3}, handDistance: {handDistance:F3}");
-
-        if (dot > cubeAlignmentThreshold && !triggered)
+        if (target && !triggered)
         {
-            Debug.Log("✔️ Hands are touching and pointing toward the cube!");
-
             TriggerEffect();
             triggered = true;
         }

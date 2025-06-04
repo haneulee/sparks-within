@@ -9,6 +9,7 @@ public class LookController : MonoBehaviour
     public float defaultVolume = 1.5f; // 기본 볼륨을 1.5배로 설정
     public float spatialBlend = 0.5f; // 3D 효과 정도 (0: 2D, 1: 3D)
     public float maxDistance = 100f; // 최대 거리
+    public GameObject currentLookTarget { get; private set; }
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class LookController : MonoBehaviour
 
     void Update()
     {
+        currentLookTarget = null; // 👈 매 프레임 초기화
         GameObject bestCandidate = null;
         float bestDot = -1f;
 
@@ -37,7 +39,6 @@ public class LookController : MonoBehaviour
             AudioSource audio = cube.GetComponent<AudioSource>();
             SoundProfile profile = cube.GetComponent<SoundProfile>();
 
-            // 수집 여부 확인
             bool alreadyCollected = profile != null &&
                                     SoundMemoryManager.Instance != null &&
                                     SoundMemoryManager.Instance.HasBeenCollected(profile.beingName);
@@ -47,7 +48,6 @@ public class LookController : MonoBehaviour
                 bestDot = dot;
                 bestCandidate = cube;
 
-                // ❗ 수집되지 않은 큐브만 소리 재생
                 if (!audio.isPlaying && !alreadyCollected)
                 {
                     audio.volume = defaultVolume;
@@ -60,5 +60,8 @@ public class LookController : MonoBehaviour
                     audio.Stop();
             }
         }
+
+        currentLookTarget = bestCandidate; // 👈 현재 바라보는 큐브 업데이트
     }
+
 }
