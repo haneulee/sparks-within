@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProximityTrigger : MonoBehaviour
 {
@@ -12,6 +13,24 @@ public class ProximityTrigger : MonoBehaviour
     private GameObject lastTriggeredTarget = null; // 👈 추가!
     private CameraViewChanger cameraViewChanger;
     private LookController lookController;
+
+    private PlayerControls controls;
+
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        controls.ClapSimulator.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.ClapSimulator.Disable();
+    }
 
     void Start()
     {
@@ -29,6 +48,13 @@ public class ProximityTrigger : MonoBehaviour
         if (leftHand == null || rightHand == null || lookController == null) return;
 
         float handDistance = Vector3.Distance(leftHand.position, rightHand.position);
+
+        // simulate the clap
+        if (controls.ClapSimulator.Clap.triggered /* clap simulator is pressed */)
+        {
+            handDistance = 0.0f; // 👈 클랩 시뮬레이션을 위해 거리 조정
+        }
+
         if (handDistance >= handTouchThreshold) return;
 
         GameObject target = lookController.currentLookTarget;
