@@ -58,12 +58,15 @@ public class ProximityTrigger : MonoBehaviour
         if (handDistance >= handTouchThreshold) return;
 
         GameObject target = lookController.currentLookTarget;
+        Debug.Log($"procimity update {target}, {lastTriggeredTarget}");
 
         if (target != lastTriggeredTarget)
         {
             triggered = false; // 👈 새로운 큐브일 경우 다시 트리거 가능
+            Debug.Log($"🔄 triggered false");
         }
 
+        Debug.Log($"🔄 triggered {triggered}, {target}, {gameObject}, {target == gameObject}");
         if (!triggered && target == gameObject)
         {
             TriggerEffect();
@@ -101,6 +104,17 @@ public class ProximityTrigger : MonoBehaviour
             buildingChanger.targetBottomColor = profile.bottomColor;
             buildingChanger.ChangeBuildingColor();
             Debug.Log($"🏢 Building color changed due to interaction with: {profile.beingName}");
+        }
+
+        // 🌍 월드 효과 트리거
+        var worldEffect = FindObjectOfType<WorldChangeEffect>();
+        if (worldEffect != null)
+        {
+            worldEffect.StartReveal(
+                transform.position,
+                profile.topColor,
+                profile.bottomColor
+            );
         }
 
         // 👀 카메라가 큐브로 즉시 이동
